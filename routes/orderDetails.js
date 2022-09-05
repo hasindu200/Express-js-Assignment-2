@@ -91,4 +91,4 @@ orderDetailsRouter.get('/:ordersId', (req,res) =>{
     })
 })
 
-module.exports = router
+module.exports = orderDetailsRouter
