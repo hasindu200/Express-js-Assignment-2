@@ -1,0 +1,22 @@
+{
+  "name": "assignment-two",
+  "version": "1.0.0",
+  "description": "ijse assignment",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hasindu200/Express-js-Assignment-2.git"
+  },
+  "author": "hasindu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hasindu200/Express-js-Assignment-2/issues"
+  },
+  "homepage": "https://github.com/hasindu200/Express-js-Assignment-2#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
