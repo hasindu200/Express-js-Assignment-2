@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router();
+const itemRouter = express.Router();
 const mysql = require('mysql')
 const db = require('../configs/db.config')
 
@@ -13,15 +13,14 @@ connection.connect(function (error) {
         var userTableQuery = "CREATE TABLE IF NOT EXISTS item (code VARCHAR(255) PRIMARY KEY , itemName VARCHAR (255),qty INT, price DOUBLE)"
         connection.query(userTableQuery, function (error,result) {
             if (error) throw error;
-            //console.log(result);
             if (result.warningCount === 0){
-                console.log("item table Created");
+                console.log("<< item table Created >>");
             }
         })
     }
 })
 
-router.post('/', (req,res) =>{
+itemRouter.post('/', (req,res) =>{
     console.log(req.body)
     const code = req.body.code;
     const itemName = req.body.itemName;
@@ -38,7 +37,7 @@ router.post('/', (req,res) =>{
     });
 })
 
-router.get('/',(req,res) =>{
+itemRouter.get('/',(req,res) =>{
     var query = "SELECT * FROM item"
     connection.query(query, (error,rows) =>{
         if (error) throw error
@@ -46,7 +45,7 @@ router.get('/',(req,res) =>{
     })
 })
 
-router.put('/', (req,res) =>{
+itemRouter.put('/', (req,res) =>{
     const code = req.body.code;
     const itemName = req.body.itemName;
     const qty = req.body.qty;
@@ -63,7 +62,7 @@ router.put('/', (req,res) =>{
     });
 })
 
-router.delete('/:code', (req,res) =>{
+itemRouter.delete('/:code', (req,res) =>{
     const code = req.params.code
 
     var query = "DELETE FROM item WHERE code=?";
@@ -79,7 +78,7 @@ router.delete('/:code', (req,res) =>{
     })
 })
 
-router.get('/:code', (req,res) =>{
+itemRouter.get('/:code', (req,res) =>{
     const code = req.params.code
 
     var query = "SELECT * FROM item WHERE code=?"
@@ -91,4 +90,4 @@ router.get('/:code', (req,res) =>{
     })
 })
 
-module.exports = router
+module.exports = itemRouter

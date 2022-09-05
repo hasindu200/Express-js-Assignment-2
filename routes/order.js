@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router();
+const orderRouter = express.Router();
 const mysql = require('mysql')
 const db = require('../configs/db.config')
 
@@ -13,15 +13,14 @@ connection.connect(function (error) {
         var userTableQuery = "CREATE TABLE IF NOT EXISTS orders (orderId VARCHAR(255) PRIMARY KEY , orderDate DATE, customerId VARCHAR(255))"
         connection.query(userTableQuery, function (error,result) {
             if (error) throw error;
-            //console.log(result);
             if (result.warningCount === 0){
-                console.log("orders table Created");
+                console.log(" << orders table Created >>");
             }
         })
     }
 })
 
-router.post('/', (req,res) =>{
+orderRouter.post('/', (req,res) =>{
     console.log(req.body)
     const orderId = req.body.orderId;
     const orderDate = req.body.orderDate;
@@ -37,7 +36,7 @@ router.post('/', (req,res) =>{
     });
 })
 
-router.get('/',(req,res) =>{
+orderRouter.get('/',(req,res) =>{
     var query = "SELECT * FROM orders"
     connection.query(query, (error,rows) =>{
         if (error) throw error
@@ -45,7 +44,7 @@ router.get('/',(req,res) =>{
     })
 })
 
-router.put('/', (req,res) =>{
+orderRouter.put('/', (req,res) =>{
     const orderId = req.body.orderId;
     const orderDate = req.body.orderDate;
     const customerId = req.body.customerId;
@@ -61,7 +60,7 @@ router.put('/', (req,res) =>{
     });
 })
 
-router.delete('/:orderId', (req,res) =>{
+orderRouter.delete('/:orderId', (req,res) =>{
     const orderId = req.params.orderId
 
     var query = "DELETE FROM orders WHERE orderId=?";
@@ -77,7 +76,7 @@ router.delete('/:orderId', (req,res) =>{
     })
 })
 
-router.get('/:orderId', (req,res) =>{
+orderRouter.get('/:orderId', (req,res) =>{
     const orderId = req.params.orderId
 
     var query = "SELECT * FROM orders WHERE orderId=?"
@@ -89,4 +88,4 @@ router.get('/:orderId', (req,res) =>{
     })
 })
 
-module.exports = router
+module.exports = orderRouter

@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router();
+const orderDetailsRouter = express.Router();
 const mysql = require('mysql')
 const db = require('../configs/db.config')
 
@@ -13,15 +13,15 @@ connection.connect(function (error) {
         var userTableQuery = "CREATE TABLE IF NOT EXISTS orderDetails (ordersId VARCHAR(255) PRIMARY KEY , qty INT, price DOUBLE ,itemCode VARCHAR(255))"
         connection.query(userTableQuery, function (error,result) {
             if (error) throw error;
-            //console.log(result);
+
             if (result.warningCount === 0){
-                console.log("orders table Created");
+                console.log("<< orders table Created >>");
             }
         })
     }
 })
 
-router.post('/', (req,res) =>{
+orderDetailsRouter.post('/', (req,res) =>{
     console.log(req.body)
     const ordersId = req.body.ordersId;
     const qty = req.body.qty;
@@ -38,7 +38,7 @@ router.post('/', (req,res) =>{
     });
 })
 
-router.get('/',(req,res) =>{
+orderDetailsRouter.get('/',(req,res) =>{
     var query = "SELECT * FROM orderDetails"
     connection.query(query, (error,rows) =>{
         if (error) throw error
@@ -46,7 +46,7 @@ router.get('/',(req,res) =>{
     })
 })
 
-router.put('/', (req,res) =>{
+orderDetailsRouter.put('/', (req,res) =>{
     const ordersId = req.body.ordersId;
     const qty = req.body.qty;
     const price = req.body.price;
@@ -63,7 +63,7 @@ router.put('/', (req,res) =>{
     });
 })
 
-router.delete('/:ordersId', (req,res) =>{
+orderDetailsRouter.delete('/:ordersId', (req,res) =>{
     const ordersId = req.params.ordersId
 
     var query = "DELETE FROM orderDetails WHERE ordersId=?";
@@ -79,7 +79,7 @@ router.delete('/:ordersId', (req,res) =>{
     })
 })
 
-router.get('/:ordersId', (req,res) =>{
+orderDetailsRouter.get('/:ordersId', (req,res) =>{
     const ordersId = req.params.ordersId
 
     var query = "SELECT * FROM orderDetails WHERE ordersId=?"

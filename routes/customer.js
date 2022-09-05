@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router();
+const cusRouter = express.Router();
 const mysql = require('mysql')
 const db = require('../configs/db.config')
 
@@ -21,7 +21,7 @@ connection.connect(function (error) {
     }
 })
 
-router.post('/', (req,res) =>{
+cusRouter.post('/', (req,res) =>{
     console.log(req.body)
     const id = req.body.id;
     const name = req.body.name;
@@ -38,7 +38,7 @@ router.post('/', (req,res) =>{
     });
 })
 
-router.get('/',(req,res) =>{
+cusRouter.get('/',(req,res) =>{
     var query = "SELECT * FROM customer"
     connection.query(query, (error,rows) =>{
         if (error) throw error
@@ -46,7 +46,7 @@ router.get('/',(req,res) =>{
     })
 })
 
-router.put('/', (req,res) =>{
+cusRouter.put('/', (req,res) =>{
     const id = req.body.id;
     const name = req.body.name;
     const address = req.body.address;
@@ -63,7 +63,7 @@ router.put('/', (req,res) =>{
     });
 })
 
-router.delete('/:id', (req,res) =>{
+cusRouter.delete('/:id', (req,res) =>{
     const id = req.params.id
 
     var query = "DELETE FROM customer WHERE id=?";
@@ -79,7 +79,7 @@ router.delete('/:id', (req,res) =>{
     })
 })
 
-router.get('/:id', (req,res) =>{
+cusRouter.get('/:id', (req,res) =>{
     const id = req.params.id
 
     var query = "SELECT * FROM customer WHERE id=?"
@@ -91,4 +91,4 @@ router.get('/:id', (req,res) =>{
     })
 })
 
-module.exports = router
+module.exports = cusRouter
